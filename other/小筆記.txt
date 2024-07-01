@@ -1,0 +1,30 @@
+當A、B
+皆繼承自base:
+
+vector<base*> vec;
+A* a[5];
+B* b[5];
+a[all] = new A(); 
+b[all] = new B();
+vec.push_back(a[all]);
+vec.push_back(b[all]);
+是沒有問題的
+
+但是當
+vector<base**> vec;
+A* a[5];
+B* b[5];
+a[all] = new A(); 
+b[all] = new B();
+vec.push_back(&a[all]);//將儲存base容器放入a類
+vec.push_back(&b[all]);
+會出現 (base類不等於A、B類) 的錯誤訊息
+
+解決方法：
+vector<base**> vec;
+A* a[5]; --> 直接宣告a[5]為base類
+B* b[5]; --> 直接宣告b[5]為base類
+a[all] = new A(); --> 這行沒問題 一樣能將a變為A類
+b[all] = new B(); --> 這行沒問題 一樣能將b變為B類
+vec.push_back(&a[all]);
+vec.push_back(&b[all]);
